@@ -6,6 +6,8 @@ echo export REDIS_PASSWORD="$REDIS_PASSWORD"
 #echo export QUEUE="publish_worker,publish_worker_default"
 echo export QUEUE="$QUEUE"
 echo export COUNT="$COUNT"
+echo export BUILD_TOKEN="$BUILD_TOKEN"
+
 }
 
 prepare_and_run() {
@@ -21,7 +23,7 @@ unset ARCH
 which rvm
 gem install bundler
 bundle install
-rake resque:work
+$REDIS_HOST $REDIS_PORT $REDIS_PASSWORD $QUEUE $COUNT $BUILD_TOKENrake resque:work
 }
 
 abf_env > $HOME/envfile
